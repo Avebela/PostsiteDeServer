@@ -16,3 +16,13 @@ model WaitList {
   name  String
   @@map("wait_list")
 }
+
+model  Cards {
+  id           Int     @id @default(autoincrement())
+  title        String  @unique
+  description  String
+  img          String
+  story        String
+
+}
+
