@@ -33,22 +33,22 @@ class typeController {
   }
 
   async create(req, res) {
-    //   try {
-    //     const { title, description, img, story } = req.body;
-    //     if (!title || !description || !img || !story)
-    //       return res.status(400).json({ message: "All fields are requierd!" });
-    //     const result = await prisma.cards.create({
-    //       data: {
-    //         title,
-    //         description,
-    //         img,
-    //         story,
-    //       },
-    //     });
-    //     res.json(result);
-    //   } catch (e) {
-    //     res.status(500).json(e.message);
-    //   }
+    try {
+      const { title, description, img, story } = req.body;
+      if (!title || !description || !img || !story)
+        return res.status(400).json({ message: "All fields are requierd!" });
+      const result = await prisma.cards.create({
+        data: {
+          title,
+          description,
+          img,
+          story,
+        },
+      });
+      res.json(result);
+    } catch (e) {
+      res.status(500).json(e.message);
+    }
   }
 
   async update(req, res) {
