@@ -3,10 +3,10 @@ const { prisma } = require("../index.ts");
 //import { prisma } from "../index.ts";
 //import { prisma } from "../index.ts";
 //module.exports =
-class typeController {
+class mailController {
   async getAll(req, res) {
     try {
-      const result = await prisma.cards.findMany();
+      const result = await prisma.waitList.findMany();
       // order: [["id", "ASC"]],
       res.json(result);
     } catch (e) {
@@ -18,10 +18,10 @@ class typeController {
     try {
       const { id } = req.params;
       if (!id) {
-        throw new Error("!id не указан!");
+        throw new Error("id не указан");
         // res.status(400).json({ message: "id не указан" });
       }
-      const card = await prisma.cards.findUnique({
+      const card = await prisma.waitList.findUnique({
         where: {
           id: Number(id),
         },
@@ -34,15 +34,13 @@ class typeController {
 
   async create(req, res) {
     try {
-      const { title, description, img, story } = req.body;
-      if (!title || !description || !img || !story)
+      const { email, name } = req.body;
+      if (!email || !name)
         return res.status(400).json({ message: "All fields are requierd!" });
-      const result = await prisma.cards.create({
+      const result = await prisma.waitList.create({
         data: {
-          title,
-          description,
-          img,
-          story,
+          email,
+          name,
         },
       });
       res.json(result);
@@ -53,19 +51,17 @@ class typeController {
 
   async update(req, res) {
     try {
-      const { id, title, description, img, story } = req.body;
+      const { id, email, name } = req.body;
       if (!id) {
         throw new Error("id не указан");
       }
-      const card = await prisma.cards.update({
+      const card = await prisma.waitList.update({
         where: {
           id: Number(id),
         },
         data: {
-          title,
-          description,
-          img,
-          story,
+          email,
+          name,
         },
       });
       return res.json(card);
@@ -79,7 +75,7 @@ class typeController {
       if (!id) {
         throw new Error("id не указан");
       }
-      const card = await prisma.cards.delete({
+      const card = await prisma.waitList.delete({
         where: {
           id: Number(id),
         },
@@ -90,4 +86,4 @@ class typeController {
     }
   }
 }
-module.exports = new typeController();
+module.exports = new mailController();

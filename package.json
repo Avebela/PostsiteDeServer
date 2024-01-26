@@ -2,6 +2,9 @@
   "name": "postbackend",
   "version": "1.0.0",
   "description": "",
+  "nodemonConfig": {
+    "ext": "ts,js,json"
+  },
   "scripts": {
     "dev": "nodemon index.ts"
   },
